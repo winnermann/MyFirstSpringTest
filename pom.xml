@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>MyFirstSpringTest</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>MyFirstSpringTest Maven Webapp</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.testcases.springstudy.ru</url>
+
+  <properties>
+    <!--Содержалось в архитипе-->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+
+    <!--Для  Spring-->
+    <spring-webmvc.version>5.2.7.RELEASE</spring-webmvc.version>
+    <spring-context.version>5.2.7.RELEASE</spring-context.version>
+    <spring-core.version>5.2.7.RELEASE</spring-core.version>
+    <spring-beans.version>5.2.7.RELEASE</spring-beans.version>
+
+    <!--Для  Selenide-->
+    <selenide.version>5.11.1</selenide.version>
+    <allure-selenide.version>2.13.3</allure-selenide.version>
+
+    <!--Для  TestNG-->
+    <testng.version>6.14.2</testng.version>
+    <maven-surefire-plugin.version>2.20.1</maven-surefire-plugin.version>
+    <aspectj.version>1.8.10</aspectj.version>
+    <allure-testng.version>2.6.0</allure-testng.version>
+
+    <!--Для  Log-->
+    <log4j-api.version>2.13.3</log4j-api.version>
+    <log4j-core.version>2.13.3</log4j-core.version>
+    <log4j-slf4j-impl.version>2.13.3</log4j-slf4j-impl.version>
+
+    <!--Для  Rest-AssuredFramework-->
+    <rest-assured.version>4.3.0</rest-assured.version>
+
+    <!--Для Allure в TestNG директория build-->
+    <allure-maven.version>2.9</allure-maven.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+  </properties>
+
+
+  <dependencies>
+
+    <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>${spring-webmvc.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring-context.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring-core.version}</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-beans -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring-beans.version}</version>
+    </dependency>
+
+
+    <!-- UI Tests -->
+    <dependency>
+      <groupId>com.codeborne</groupId>
+      <artifactId>selenide</artifactId>
+      <version>${selenide.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-selenide</artifactId>
+      <version>${allure-selenide.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>io.qameta.allure</groupId>
+      <artifactId>allure-testng</artifactId>
+      <version>${allure-testng.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>${log4j-api.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>${log4j-core.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-slf4j-impl</artifactId>
+      <version>${log4j-slf4j-impl.version}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>${rest-assured.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <finalName>MyFirstSpringTest</finalName>
+      <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-surefire-plugin</artifactId>
+              <version>${maven-surefire-plugin.version}</version>
+              <configuration>
+                  <argLine>-javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"</argLine>
+                  <systemProperties>
+                      <property>
+                          <name>allure.results.directory</name>
+                          <value>${project.build.directory}/allure-results</value>
+                      </property>
+                  </systemProperties>
+              </configuration>
+              <dependencies>
+                  <dependency>
+                      <groupId>org.aspectj</groupId>
+                      <artifactId>aspectjweaver</artifactId>
+                      <version>${aspectj.version}</version>
+                  </dependency>
+              </dependencies>
+
+          </plugin>
+
+          <!--Для Allure в TestNG-->
+          <plugin>
+              <groupId>io.qameta.allure</groupId>
+              <artifactId>allure-maven</artifactId>
+              <version>${allure-maven.version}</version>
+              <configuration>
+                  <reportVersion>2.6.0</reportVersion>
+              </configuration>
+          </plugin>
+
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <version>${maven-compiler-plugin.version}</version>
+              <configuration>
+                  <source>1.8</source>
+                  <target>1.8</target>
+              </configuration>
+          </plugin>
+      </plugins>
+  </build>
+</project>
